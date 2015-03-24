@@ -954,7 +954,7 @@ var ajaxpath = 'http://www.safelearners.com/aisc/images/';
   document.addEventListener("deviceready", onDeviceReady, false);
         // device APIs are available
         function onDeviceReady() {
-			
+			var db = window.openDatabase("aisc", "1.0", "aisc user local Database", 200000); //will create database Dummy_DB or open it	
 			
 			
             if(navigator.network.connection.type == Connection.NONE){

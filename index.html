@@ -954,11 +954,18 @@ var ajaxpath = 'http://www.safelearners.com/aisc/images/';
   document.addEventListener("deviceready", onDeviceReady, false);
         // device APIs are available
         function onDeviceReady() {
+			
+			
+			
             if(navigator.network.connection.type == Connection.NONE){
                 alert("nocon");
             }else{
                 alert("yescon");
             }
+			
+			
+			
+			loadcontacts();
         }
  
  

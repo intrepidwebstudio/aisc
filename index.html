@@ -977,6 +977,8 @@ var ajaxpath = 'http://www.safelearners.com/aisc/images/';
 		loadContactsFromLocalDb(); 
 		 }
 		else{
+			
+			loadcontactsfromserver(); 
 			//fetch contacts from online and update in local db 
 			//then call loadcontacts from local db function afgain;	
 		
@@ -999,6 +1001,12 @@ function successCB() {
 function queryContactDB(tx){
 tx.executeSql('SELECT * FROM upcomingevents ',[],queryContactSuccess,errorContactCB);
 }
+
+
+function errorContactCB(error){
+	
+	alert("ERROR : "+error.message);
+	}
 
 function queryContactSuccess(tx,result){
 		var length = result.rows.length;
@@ -1030,6 +1038,17 @@ function queryContactSuccess(tx,result){
 
 function loadcontactsfromserver()
 {
+	
+	db.transaction(populateContactDB, errorContactCB, successContactCBServer);
+	
+
+	
+}
+
+
+function successContactCBServer(){
+	
+	alert('nee gethu ba !!!!');
 	$.support.cors = true;
 	$.ajax({
 	url:ajaxpath+'loadcontact.php?apptokenid='+AppTokenId,
@@ -1040,10 +1059,11 @@ function loadcontactsfromserver()
 	crossDomain: true,
 	success: function(data)
 	{
-		alert(data.Response);
-		alert(data.Response.status);
-			if(data.Response.status=='100')
+		
+		alert(data.status);
+			if(data.status=='100')
 			{
+				alert(data.Response);
 				alert('11');
 				var	Response = data.Response;
 				alert('14');
@@ -1060,13 +1080,14 @@ function loadcontactsfromserver()
 	});
 
 	
-}
+	}
 
 
 function insertContactvalues(tx,parameter1,parameter2,parameter3)
 {
 	alert('121');
 	alert(parameter1+'===='+parameter2+'===='+parameter3);
+	
 	tx.executeSql('INSERT INTO atozuser(username, user_id , phone ) VALUES (?,?,?)',[parameter1,parameter2,parameter3],loadContacsFromLocalDb);
 	
  }

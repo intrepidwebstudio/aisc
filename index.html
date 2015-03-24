@@ -963,6 +963,8 @@
         speed: 800
       });
 	  
+  checkConnection();
+  
   });
   
   
@@ -1074,6 +1076,7 @@ function ErrorCallBack(err){
 
 
 function checkConnection() {
+	alert('sssssss');
     var networkState = navigator.connection.type;
 
     var states = {};
@@ -1089,7 +1092,7 @@ function checkConnection() {
     alert('Connection type: ' + states[networkState]);
 }
 
-checkConnection();
+
 
 
 

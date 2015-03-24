@@ -2641,7 +2641,7 @@ li.ui-block-e {
 }
 .ui-header-fixed {
 	top: -1px;
-	padding-top: 1px;
+	
 }
 .ui-header-fixed.ui-fixed-hidden {
 	top: 0;

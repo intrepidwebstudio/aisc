@@ -813,49 +813,24 @@
     </div>
    <!--/header---->
     <!----content---->
-    <div class="contactsmain examplecolor">
-    	<div style="padding:1px;"><p>Main Reception &emsp; 004-22549000</p></div>
+   <div data-role="content" id="contact_id" > 
+   
+      
+    
+<!--    <div class="contactsmain examplecolor">
+    	<div style="padding:1px;"><p style="text-align:center !important; vertical-align:middle !important">Main Reception &emsp; 004-22549000</p></div>
     </div>
-    <div class="contactsimagetop examplecolor">
-    	<div style="float:left;">
+    <div class="contactsimagetop examplecolor" style="width:100%;">
+    	<div style="float:left; width:20% !important;">
     		<img class="contactsimage" src="images/gallery/baby.png">
     	</div>
-        <div style="float:right; margin-right:30px;">
-    		<div><p style="margin-left:25px;margin-top:14px;font-size:15px;">Andrew Hoover</p><p style="margin-top:-14px; font-size:15px;">headofschool@aisch.org</p></div>
+        <div style="float:right;  width:80% !important;">
+    		<div><p style="font-size:15px; vertical-align:middle !important; text-align:center !important">Andrew Hoover<br />headofschool@aisch.org</p>
+            </div>
         </div>
     </div>
-    <div class="contactsimagetop1 examplecolor">
-    	<div style="float:left;">
-    		<img class="contactsimage" src="images/gallery/con1.png" />
-    	</div>
-        <div style="float:right; margin-right:30px;">
-    		<div><p style="margin-left:25px;margin-top:14px;font-size:15px;">Andrew Hoover</p><p style="margin-top:-14px; font-size:15px;">headofschool@aisch.org</p></div>
-         </div>
-    </div>
-    <div class="contactsimagetop1 examplecolor">
-    	<div style="float:left;">
-    		<img class="contactsimage" src="images/gallery/baby.png" />
-    	</div>
-        <div style="float:right; margin-right:30px;">
-    		<div><p style="margin-left:25px;margin-top:14px;font-size:15px;">Andrew Hoover</p><p style="margin-top:-14px; font-size:15px;">headofschool@aisch.org</p></div>
-         </div>
-    </div>
-    <!--<div class="contactsimagetop1 examplecolor">
-    	<div style="float:left;">
-    		<img class="contactsimage" src="images/gallery/person1.png" />
-    	</div>
-        <div style="float:right; margin-right:30px;">
-    		<div><p style="margin-left:25px;margin-top:14px;font-size:15px;">Andrew Hoover</p><p style="margin-top:-14px; font-size:15px;">headofschool@aisch.org</p></div>
-         </div>
-    </div>
-    <div class="contactsimagetop1 examplecolor">
-    	<div style="float:left;">
-    		<img class="contactsimage" src="images/gallery/person2.png" />
-    	</div>
-        <div style="float:right; margin-right:30px;">
-    		<div><p style="margin-left:25px;margin-top:14px;font-size:15px;">Andrew Hoover</p><p style="margin-top:-14px; font-size:15px;">headofschool@aisch.org</p></div>
-         </div>
-    </div>-->
+-->
+   </div> 
    
 </div>
 <!------------------/contactsPage--------------->
@@ -956,6 +931,14 @@
 <script src="js/responsiveslides.min.js"></script>
 <script>
     // You can also use "$(window).load(function() {"
+//	GLOBAL VALUES
+var AppTokenId='abcdefghijklmnopqrstuvwxyz';
+var ajaxpath = 'http://www.safelearners.com/aisc/appajax/';
+var ajaxpath = 'http://www.safelearners.com/aisc/images/';
+	
+	
+	
+	
     $(function () {
 
       // Slideshow 1
@@ -977,6 +960,113 @@
                 alert("yescon");
             }
         }
+ 
+ 
+ 
+ function loadcontacts()
+ {
+	 if(navigator.network.connection.type == Connection.NONE)
+	 {
+		loadContactsFromLocalDb(); 
+		 }
+		else{
+			//fetch contacts from online and update in local db 
+			//then call loadcontacts from local db function afgain;	
+		
+		}		 
+	 }
+	 
+	 
+function loadContacsFromLocalDb()
+{
+	db.transaction(populateContactDB, errorContactCB, successContactCB);
+	}	 
+
+function populateContactDB(tx) {
+tx.executeSql('CREATE TABLE IF NOT EXISTS upcomingevents (id INTEGER PRIMARY KEY AUTOINCREMENT, eventname TEXT NOT NULL , datetime DATETIME , readstatus INTEGER )');
+}
+
+function successCB() {
+	db.transaction(queryContactDB,errorContactCB);
+}
+function queryContactDB(tx){
+tx.executeSql('SELECT * FROM upcomingevents ',[],queryContactSuccess,errorContactCB);
+}
+
+function queryContactSuccess(tx,result){
+		var length = result.rows.length;
+		
+		var contactappend='';
+			if(length >0)
+			{
+				for(var i=0; i< length ; i++)
+				{
+
+		contactappend+='<div class="contactsimagetop examplecolor" style="width:100%;"><div style="float:left; width:20% !important;">';
+		contactappend+='<img class="contactsimage" src="images/gallery/baby.png">';
+		contactappend+='</div><div style="float:right;  width:80% !important;">';
+		contactappend+='<div><p style="font-size:15px; vertical-align:middle !important; text-align:center !important">Andrew Hoover<br />headofschool@aisch.org</p></div></div></div>';
+		
+		$('#contact_id').html('');
+		$('#contact_id').html(contactappend);
+				}
+			}//if close
+			else{
+				//CONNECT TO SERVER
+				 if(navigator.network.connection.type == Connection.NONE){
+						navigator.notification.alert("No contacts available , Please turn on Data to sync contact", alertCallback, "AISC", "Done");
+				 }else{
+					loadcontactsfromserver(); 
+					 }
+			}
+}
+
+function loadcontactsfromserver()
+{
+	$.support.cors = true;
+	$.ajax({
+	url:ajaxpath+'loadcontact.php?apptokenid='+AppTokenId,
+	type:'POST',
+	contentType: "application/json",
+	async: true,
+	dataType: 'json',
+	crossDomain: true,
+	success: function(data)
+	{
+		alert(data.Response);
+		alert(data.Response.status);
+			if(data.Response.status=='100')
+			{
+				alert('11');
+				var	Response = data.Response;
+				alert('14');
+				var	readstatus=0;
+				db.transaction( function(tx){ insertContactvalues(tx, Response.eventsname, Response.datetime, readstatus )}, ErrorCallBack );	
+		}else{
+				navigator.notification.alert("Network problem , please try after sometime !!", alertCallback, "Ebbu", "OK");
+				}	
+	},
+	error: function(e)
+	{
+	   navigator.notification.alert("System error 83014. Please try again in a couple of minutes.", alertCallback, "Ebbu", "Done");
+	}
+	});
+
+	
+}
+
+
+function insertContactvalues(tx,parameter1,parameter2,parameter3)
+{
+	alert('121');
+	alert(parameter1+'===='+parameter2+'===='+parameter3);
+	tx.executeSql('INSERT INTO atozuser(username, user_id , phone ) VALUES (?,?,?)',[parameter1,parameter2,parameter3],loadContacsFromLocalDb);
+	
+ }
+	
+	
+  
+  
   /*
   
   	var db = window.openDatabase("aisc", "1.0", "aisc user local Database", 200000); //will create database Dummy_DB or open it

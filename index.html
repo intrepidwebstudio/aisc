@@ -1095,7 +1095,7 @@ function successContactCBServer(){
 	success: function(data)
 	{
 		
-	db.transaction( function(tx){ QueryEmptyDb(tx)}, ErrorCallBack );		
+	db.transaction( function(tx){ tx.executeSql('DELETE * contacts',errorContactCBdelete)}, ErrorCallBack );		
 		
 		alert(data.status.code);
 			if(data.status.code=='100')
@@ -1124,9 +1124,10 @@ function successContactCBServer(){
 	   navigator.notification.alert("System error 83014. Please try again in a couple of minutes.", alertCallback, "Ebbu", "Done");
 	}
 	});
-
 	
-	}
+ }
+ 
+ 
 function ErrorCallBack(err){
 	alert("ERROR :"+err);
 }
@@ -1142,12 +1143,7 @@ function insertContactvalues(tx,parameter1,parameter2,parameter3)
 	
  }
 	
-function QueryEmptyDb(tx)
-{
-	tx.executeSql('DELETE * contacts',null,null);
-	
-	}	
-  
+
   
   /*
   

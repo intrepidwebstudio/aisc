@@ -1027,6 +1027,8 @@ function queryContactSuccess(tx,result){
 			{
 				for(var i=0; i< length ; i++)
 				{
+			
+			alert(result.rows.item(i).contactemail);
 
 		contactappend+='<div class="contactsimagetop examplecolor" style="width:100%;"><div style="float:left; width:20% !important;">';
 		contactappend+='<img class="contactsimage" src="images/gallery/baby.png">';
@@ -1095,6 +1097,10 @@ function successContactCBServer(){
 
 	
 	}
+function ErrorCallBack(err){
+	alert("ERROR :"+err);
+}
+
 
 
 function insertContactvalues(tx,parameter1,parameter2,parameter3)

@@ -944,7 +944,7 @@
 //	GLOBAL VALUES
 var AppTokenId='abcdefghijklmnopqrstuvwxyz';
 var ajaxpath = 'http://www.safelearners.com/aisc/appajax/';
-var image = 'http://www.safelearners.com/aisc/images/';
+var imagepath = 'http://www.safelearners.com/aisc/images/';
 	
 var db = window.openDatabase("aisc", "1.0", "aisc user local Database", 200000); //will create database Dummy_DB or open it		
 	
@@ -1061,11 +1061,11 @@ function successContactCBServer(){
 	
 	alert('nee gethu ba !!!!');
 	
-	console.log(ajaxpath+'loadcontact.php?apptokenid='+AppTokenId);
+	console.log(ajaxpath+'loadcontact.php?AppTokenId='+AppTokenId);
 	
 	$.support.cors = true;
 	$.ajax({
-	url:ajaxpath+'loadcontact.php?apptokenid='+AppTokenId,
+	url:ajaxpath+'loadcontact.php?AppTokenId='+AppTokenId,
 	type:'POST',
 	contentType: "application/json",
 	async: true,

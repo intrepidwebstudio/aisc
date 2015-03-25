@@ -1104,7 +1104,7 @@ function successContactCBServer(){
 			if(Response.length > 0)
 			{
 				console.log('delete start');
-				db.transaction(function(tx){ tx.executeSql('DELETE FROM contacts',ErrorCallBack) });
+				db.transaction(function(tx){ tx.executeSql('TRUNCATE contacts',ErrorCallBack) });
 				console.log('delee completed');
 			
 				}

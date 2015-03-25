@@ -1036,7 +1036,7 @@ function queryContactSuccess(tx,result){
 			
 		var name =	result.rows.item(i).name;
 		var	contactemail =result.rows.item(i).contactemail;
-		var image =	result.rows.item(i).image;
+		var image =	result.rows.item(i).imagepath;
 		console.log("Imahe ="+imagepath+image+" Name = "+name +" contact email "+ contactemail);
 		
 		contactappend+='<div class="contactsimagetop examplecolor" style="width:100%;"><div style="float:left; width:20% !important;">';
@@ -1050,7 +1050,7 @@ function queryContactSuccess(tx,result){
 		
 		
 		contactappend+='</div><div style="float:right;  width:80% !important;">';
-		contactappend+='<div><p style="font-size:15px; vertical-align:middle !important; text-align:center !important">'+name+'<br /><a href="'+contactemail+'"'+contactemail+'</p></div></div></div>';
+		contactappend+='<div><p style="font-size:15px; vertical-align:middle !important; text-align:center !important">'+name+'<br /><a href="mailto:'+contactemail+'" >'+contactemail+'</a></p></div></div></div>';
 		}
 		$('#contact_id').html(contactappend);		
 				

@@ -1012,7 +1012,7 @@ function successContactCB() {
 	db.transaction(queryContactDB,errorContactCB);
 }
 function queryContactDB(tx){
-tx.executeSql('SELECT * FROM contacts ',[],queryContactSuccess,errorContactCB);
+tx.executeSql('SELECT * FROM contacts',[],queryContactSuccess,errorContactCB);
 }
 
 
@@ -1038,7 +1038,7 @@ function queryContactSuccess(tx,result){
 		var	contactemail =result.rows.item(i).contactemail;
 		var image =	result.rows.item(i).image;
 		
-	console.log("NAME = "+name+"NAME = "+contactemail+"NAME = "+imagepath+image );
+	console.log("NAME = "+name+"NAME = "+contactemail+"NAME = "+imagepat+image );
 		contactappend+='<div class="contactsimagetop examplecolor" style="width:100%;"><div style="float:left; width:20% !important;">';
 		
 			if(image==''){

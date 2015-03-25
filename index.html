@@ -1012,11 +1012,16 @@ function successContactCB() {
 	db.transaction(queryContactDB,errorContactCB);
 }
 function queryContactDB(tx){
-tx.executeSql('SELECT * FROM contacts ',[],queryContactSuccess,errorContactCB);
+tx.executeSql('SELECT * FROM contacts ',[],queryContactSuccess,errorContactCB3);
 }
 
 
 function errorContactCB(err){
+	
+	alert("ERROR 2 : "+err.message);
+	}
+
+function errorContactCB3(err){
 	
 	alert("ERROR 2 : "+err.message);
 	}

@@ -944,7 +944,7 @@
 //	GLOBAL VALUES
 var AppTokenId='abcdefghijklmnopqrstuvwxyz';
 var ajaxpath = 'http://www.safelearners.com/aisc/appajax/';
-var imagepath = 'http://www.safelearners.com/aisc/images/';
+var imagepath = 'http://www.safelearners.com/aisc/';
 	
 var db = window.openDatabase("aisc", "1.0", "aisc user local Database", 200000); //will create database Dummy_DB or open it		
 	
@@ -978,7 +978,10 @@ var db = window.openDatabase("aisc", "1.0", "aisc user local Database", 200000);
  
  
  
- function loadcontacts()
+ 
+ 
+ 
+function loadcontacts()
  {
 	 if(navigator.network.connection.type == Connection.NONE)
 	 {
@@ -990,19 +993,18 @@ var db = window.openDatabase("aisc", "1.0", "aisc user local Database", 200000);
 			loadcontactsfromserver(); 
 			//fetch contacts from online and update in local db 
 			//then call loadcontacts from local db function afgain;	
-		
 		}		 
 	 }
 	 
 	 
-function loadContacsFromLocalDb()
+function loadContactsFromLocalDb()
 {
 	alert("loadContacsFromLocalDb");
 	db.transaction(populateContactDB, errorContactCB, successContactCB);
 	}	 
 
 function populateContactDB(tx) {
-	alert("loadContacsFromLocalDb");
+	alert("loadContacsFromLocalDb  sdfsa asedf asdf");
 tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL , contactemail TEXT NOT NULL , imagepath TEXT NOT NULL )');
 }
 
@@ -1025,19 +1027,28 @@ function queryContactSuccess(tx,result){
 		var contactappend='';
 			if(length >0)
 			{
+			$('#contact_id').html('');	
+				
 				for(var i=0; i< length ; i++)
 				{
 			
-			alert(result.rows.item(i).contactemail);
-
-		contactappend+='<div class="contactsimagetop examplecolor" style="width:100%;"><div style="float:left; width:20% !important;">';
-		contactappend+='<img class="contactsimage" src="images/gallery/baby.png">';
-		contactappend+='</div><div style="float:right;  width:80% !important;">';
-		contactappend+='<div><p style="font-size:15px; vertical-align:middle !important; text-align:center !important">Andrew Hoover<br />headofschool@aisch.org</p></div></div></div>';
+			alert(result.rows.item(i).name);
+			
+		var name =	result.rows.item(i).name;
+		var	contactemail =result.rows.item(i).contactemail;
+		var image =	result.rows.item(i).image;
 		
-		$('#contact_id').html('');
-		$('#contact_id').html(contactappend);
-				}
+			if(image==''){
+				image = 'img/noimageicon.png';
+			}
+		
+		contactappend+='<div class="contactsimagetop examplecolor" style="width:100%;"><div style="float:left; width:20% !important;">';
+		contactappend+='<img class="contactsimage" src="'+imagepath+image+'">';
+		contactappend+='</div><div style="float:right;  width:80% !important;">';
+		contactappend+='<div><p style="font-size:15px; vertical-align:middle !important; text-align:center !important">'+name+'<br /><a href="'+contactemail+'"'+contactemail+'</p></div></div></div>';
+		}
+		$('#contact_id').html(contactappend);		
+				
 			}//if close
 			else{
 				//CONNECT TO SERVER
@@ -1061,7 +1072,7 @@ function loadcontactsfromserver()
 
 function successContactCBServer(){
 	
-	alert('nee gethu ba !!!!');
+	alert('adasda !!!!');
 	
 	console.log(ajaxpath+'loadcontacts.php?AppTokenId='+AppTokenId);
 	
@@ -1083,7 +1094,13 @@ function successContactCBServer(){
 				alert('11');
 				var	Response = data.Response;
 				alert('14');
-		
+			
+			if(Response.length > 0)
+			{
+				
+			
+				}
+			
 			$.each(Response, function(index, element) {
 
 				db.transaction( function(tx){ insertContactvalues(tx, element.name, element.contactemail, element.imagepath )}, ErrorCallBack );	

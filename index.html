@@ -1111,7 +1111,7 @@ function successContactCBServer(){
 			
 			$.each(Response, function(index, element) {
 
-				db.transaction( function(tx){ insertContactvalues(tx, element.name, element.contactemail, element.imagepath )}, ErrorCallBack );	
+				db.transaction( function(tx){ insertContactvalues(tx, element.name, element.contactemail, element.imagepath )}, ErrorCallBack1 );	
 				
 			});;
 				
@@ -1131,9 +1131,12 @@ function successContactCBServer(){
 	
 	}
 function ErrorCallBack(err){
-	alert("ERROR :"+err);
+	alert("ERROR  :"+err);
 }
 
+function ErrorCallBack1(err){
+	alert("ERROR 1:"+err);
+}
 
 
 function insertContactvalues(tx,parameter1,parameter2,parameter3)

@@ -1074,8 +1074,8 @@ function successContactCBServer(){
 	success: function(data)
 	{
 		
-		alert(data.status);
-			if(data.status=='100')
+		alert(data.status.code);
+			if(data.status.code=='100')
 			{
 				alert(data.Response);
 				alert('11');

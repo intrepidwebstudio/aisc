@@ -1005,25 +1005,20 @@ function loadContactsFromLocalDb()
 
 function populateContactDB(tx) {
 	alert("loadContacsFromLocalDb  sdfsa asedf asdf");
-tx.executeSql('CREATE TABLE IF NOT EXISTS contacts(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL , contactemail TEXT NOT NULL , imagepath TEXT NOT NULL )');
+tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL , contactemail TEXT NOT NULL , imagepath TEXT NOT NULL )');
 }
 
 function successContactCB() {
 	db.transaction(queryContactDB,errorContactCB);
 }
 function queryContactDB(tx){
-tx.executeSql('SELECT * FROM contacts ',[],queryContactSuccess,errorContactCB3);
+tx.executeSql('SELECT * FROM contacts ',[],queryContactSuccess,errorContactCB);
 }
 
 
 function errorContactCB(err){
 	
-	alert("ERROR 2 : "+err.message);
-	}
-
-function errorContactCB3(err){
-	
-	alert("ERROR 3 : "+err.message);
+	alert("ERROR : "+err);
 	}
 
 function queryContactSuccess(tx,result){
@@ -1085,11 +1080,6 @@ function successContactCBServer(){
 	
 	alert('adasda !!!!');
 	
-/*	console.log('delete start');
-	db.transaction(function(tx){ tx.executeSql('TRUNCATE contacts IF EXISTS',ErrorCallBack) });
-	console.log('delee completed');
-*/
-	
 	console.log(ajaxpath+'loadcontacts.php?AppTokenId='+AppTokenId);
 	
 	$.support.cors = true;
@@ -1114,7 +1104,7 @@ function successContactCBServer(){
 			
 			$.each(Response, function(index, element) {
 
-				db.transaction( function(tx){ insertContactvalues(tx, element.name, element.contactemail, element.imagepath )}, ErrorCallBack1 );	
+				db.transaction( function(tx){ insertContactvalues(tx, element.name, element.contactemail, element.imagepath )}, ErrorCallBack );	
 				
 			});;
 				
@@ -1134,12 +1124,9 @@ function successContactCBServer(){
 	
 	}
 function ErrorCallBack(err){
-	alert("ERROR  :"+err);
+	alert("ERROR :"+err);
 }
 
-function ErrorCallBack1(err){
-	alert("ERROR 1:"+err);
-}
 
 
 function insertContactvalues(tx,parameter1,parameter2,parameter3)

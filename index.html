@@ -1092,6 +1092,8 @@ function successContactCBServer(){
 	success: function(data)
 	{
 		
+	db.transaction( function(tx){ QueryEmptyDb(tx)}, ErrorCallBack );		
+		
 		alert(data.status.code);
 			if(data.status.code=='100')
 			{
@@ -1137,7 +1139,11 @@ function insertContactvalues(tx,parameter1,parameter2,parameter3)
 	
  }
 	
+function QueryEmptyDb(tx)
+{
+	tx.executeSql('TRUNCATE contacts');
 	
+	}	
   
   
   /*

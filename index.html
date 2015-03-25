@@ -1061,11 +1061,11 @@ function successContactCBServer(){
 	
 	alert('nee gethu ba !!!!');
 	
-	console.log(ajaxpath+'loadcontact.php?AppTokenId='+AppTokenId);
+	console.log(ajaxpath+'loadcontacts.php?AppTokenId='+AppTokenId);
 	
 	$.support.cors = true;
 	$.ajax({
-	url:ajaxpath+'loadcontact.php?AppTokenId='+AppTokenId,
+	url:ajaxpath+'loadcontacts.php?AppTokenId='+AppTokenId,
 	type:'POST',
 	contentType: "application/json",
 	async: true,

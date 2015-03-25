@@ -1006,7 +1006,7 @@ function populateContactDB(tx) {
 tx.executeSql('CREATE TABLE IF NOT EXISTS contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL , contactemail TEXT NOT NULL , imagepath TEXT NOT NULL )');
 }
 
-function successCB() {
+function successContactCB() {
 	db.transaction(queryContactDB,errorContactCB);
 }
 function queryContactDB(tx){
@@ -1083,8 +1083,16 @@ function successContactCBServer(){
 				alert('11');
 				var	Response = data.Response;
 				alert('14');
+		
+			$.each(Response, function(index, element) {
 
-				db.transaction( function(tx){ insertContactvalues(tx, Response.name, Response.contactemail, Response.imagepath )}, ErrorCallBack );	
+				db.transaction( function(tx){ insertContactvalues(tx, element.name, element.contactemail, element.imagepath )}, ErrorCallBack );	
+				
+			});;
+				
+				
+				loadContacsFromLocalDb();
+				
 		}else{
 				navigator.notification.alert("Network problem , please try after sometime !!", alertCallback, "Ebbu", "OK");
 				}	
@@ -1108,7 +1116,7 @@ function insertContactvalues(tx,parameter1,parameter2,parameter3)
 	alert('121');
 	alert(parameter1+'===='+parameter2+'===='+parameter3);
 	
-	tx.executeSql('INSERT INTO contacts(name , contactemail , imagepath  ) VALUES (?,?,?)',[parameter1,parameter2,parameter3],loadContacsFromLocalDb);
+	tx.executeSql('INSERT INTO contacts(name , contactemail , imagepath  ) VALUES (?,?,?)',[parameter1,parameter2,parameter3]);
 	
  }
 	

@@ -973,7 +973,7 @@ var db = window.openDatabase("aisc", "1.0", "aisc user local Database", 200000);
             }else{
                 alert("yescon");
             }
-			
+			browser_setting();
 			
 			
 			loadcontacts();
@@ -1270,18 +1270,45 @@ function checkConnection() {
 }
 
 
-function loadurl(){
-	alert('dddcc');
-	window.plugins.ChildBrowser.showWebPage('http://www.google.com',
-                                        { showLocationBar: true });
+
+
+        var iabRef = null;
+	    function iabLoadStart(event) {
+        }
+	   function iabLoadStop(event) {
+		}
+        function iabClose(event) {
+          iabRef.removeEventListener('loadstart', iabLoadStart);
+          iabRef.removeEventListener('loadstop', iabLoadStop);
+          iabRef.removeEventListener('exit', iabClose);
+          iabRef.removeEventListener('share', iabClose);
+		  iabRef.close();
+        }
+        function iabShare(event){
+        }
+        function loadurl(){
+			
+			iabRef = window.open('http://www.google.co.in', '_blank','toolbarposition=bottom,location=no,presentationstyle=formsheet,closebuttoncaption=Close');//presentationstyle: Set to pagesheet, formsheet or fullscreen 
+			$.support.cors = true;
+			iabRef.addEventListener('exit', iabClose);
+            iabRef.addEventListener('share', iabShare);
+            iabRef.addEventListener('loadstart', iabLoadStart);
+            iabRef.addEventListener('loadstop', iabLoadStop);
+        }
+		
+		
+function browser_setting()
+	{	
+        $(document).bind( 'mobileinit', function(){
+		
+                         $.mobile.loader.prototype.options.text ="";
+                         $.mobile.loader.prototype.options.textVisible = false;
+                         $.mobile.loader.prototype.options.theme ="d";
+                         $.mobile.loader.prototype.options.textonly = false;
+                         $.mobile.loader.prototype.options.html ="<img src='../loader.png'/>";
+                         $.mobile.allowCrossDomainPages = true;
+                         });
 	}
-
-
-
-
-
-
-
 
 </script>
 </body>

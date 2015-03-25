@@ -974,10 +974,11 @@ var ajaxpath = 'http://www.safelearners.com/aisc/images/';
  {
 	 if(navigator.network.connection.type == Connection.NONE)
 	 {
+		 alert("loadContacsFromLocalDb");
 		loadContactsFromLocalDb(); 
 		 }
 		else{
-			
+			alert("loadContacsFromserver");
 			loadcontactsfromserver(); 
 			//fetch contacts from online and update in local db 
 			//then call loadcontacts from local db function afgain;	
@@ -988,10 +989,12 @@ var ajaxpath = 'http://www.safelearners.com/aisc/images/';
 	 
 function loadContacsFromLocalDb()
 {
+	alert("loadContacsFromLocalDb");
 	db.transaction(populateContactDB, errorContactCB, successContactCB);
 	}	 
 
 function populateContactDB(tx) {
+	alert("loadContacsFromLocalDb");
 tx.executeSql('CREATE TABLE IF NOT EXISTS upcomingevents (id INTEGER PRIMARY KEY AUTOINCREMENT, eventname TEXT NOT NULL , datetime DATETIME , readstatus INTEGER )');
 }
 

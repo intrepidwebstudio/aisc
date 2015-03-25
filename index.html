@@ -6,6 +6,16 @@
 <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css" />
 <link rel="stylesheet" href="css/custom1.css" />
 <link rel="stylesheet" href="css/responsiveslides.css" />
+	<script> 
+	document.onreadystatechange = function(e)
+	{
+		if (document.readyState === 'complete')
+		{	  
+		alert('asd');
+				document.addEventListener("deviceready", onDeviceReady, false);
+		}
+	};
+   </script>
 <script type="text/javascript" src="cordova.js"></script>
 <style>
  @media only screen and (min-device-width: 320px) and (min-device-height: 480px) {
@@ -936,7 +946,7 @@ var AppTokenId='abcdefghijklmnopqrstuvwxyz';
 var ajaxpath = 'http://www.safelearners.com/aisc/appajax/';
 var ajaxpath = 'http://www.safelearners.com/aisc/images/';
 	
-	
+var db = window.openDatabase("aisc", "1.0", "aisc user local Database", 200000); //will create database Dummy_DB or open it		
 	
 	
     $(function () {
@@ -951,11 +961,9 @@ var ajaxpath = 'http://www.safelearners.com/aisc/images/';
   
   });
   
-  document.addEventListener("deviceready", onDeviceReady, false);
+  
         // device APIs are available
         function onDeviceReady() {
-			var db = window.openDatabase("aisc", "1.0", "aisc user local Database", 200000); //will create database Dummy_DB or open it	
-			
 			
             if(navigator.network.connection.type == Connection.NONE){
                 alert("nocon");
@@ -1006,9 +1014,9 @@ tx.executeSql('SELECT * FROM upcomingevents ',[],queryContactSuccess,errorContac
 }
 
 
-function errorContactCB(error){
+function errorContactCB(err){
 	
-	alert("ERROR : "+error.message);
+	alert("ERROR : "+err);
 	}
 
 function queryContactSuccess(tx,result){

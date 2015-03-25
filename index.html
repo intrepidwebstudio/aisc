@@ -1018,7 +1018,7 @@ tx.executeSql('SELECT * FROM contacts ',[],queryContactSuccess,errorContactCB);
 
 function errorContactCB(err){
 	
-	alert("ERROR 2 : "+err);
+	alert("ERROR 2 : "+err.message);
 	}
 
 function queryContactSuccess(tx,result){

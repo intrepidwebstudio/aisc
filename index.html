@@ -1085,6 +1085,11 @@ function successContactCBServer(){
 	
 	alert('adasda !!!!');
 	
+	console.log('delete start');
+	db.transaction(function(tx){ tx.executeSql('TRUNCATE contacts IF EXISTS',ErrorCallBack) });
+	console.log('delee completed');
+
+	
 	console.log(ajaxpath+'loadcontacts.php?AppTokenId='+AppTokenId);
 	
 	$.support.cors = true;
@@ -1106,13 +1111,6 @@ function successContactCBServer(){
 				var	Response = data.Response;
 				alert('14');
 			
-			if(Response.length > 0)
-			{
-				console.log('delete start');
-				db.transaction(function(tx){ tx.executeSql('TRUNCATE contacts',ErrorCallBack) });
-				console.log('delee completed');
-			
-				}
 			
 			$.each(Response, function(index, element) {
 

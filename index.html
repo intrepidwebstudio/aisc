@@ -1183,11 +1183,11 @@ function loadupcomingevents()
 	 if(navigator.network.connection.type == Connection.NONE)
 	 {
 		 alert("loadupcomingevents local");
-		loadContactsFromLocalDb(); 
+		loadEventsFromLocalDb(); 
 		 }
 		else{
 			alert("loadupcomingevents server");
-			loadcontactsfromserver(); 
+			loadEventsfromserver(); 
 			//fetch contacts from online and update in local db 
 			//then call loadcontacts from local db function afgain;	
 		}		 
